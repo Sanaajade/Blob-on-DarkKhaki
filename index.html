@@ -5,11 +5,9 @@
 const GIF = 'Blob Morphing Sticker.gif'
 const COLOR = 'Honeydew'
   
-async function createGif (x, y){
-  const gif = await nn.loadImage(GIF)
+function createGif (x, y, gif){
   nn.create('img')
-     .set({ 
-       src: `${GIF}#${Math.random()}`
+     .set({ src: `${gif}#${Math.random()}`
 
       })
      .css({
@@ -22,20 +20,22 @@ async function createGif (x, y){
   }
   
 async function setup () {
-    nn.get('body').css({ backgroundColor: COLOR })
+    nn.get('body').css({ 
+      backgroundColor: COLOR,
+      overflow: 'hidden'
+    })
     
-    const gif = await nn.loadImage(GIF)
-    
-    const colSize = gif.width / 4
-    const numCols = nn.width / colSize
-    const rowSize = gif.height / 2
-    const numRows = nn.height * 0.75 / rowSize
+    const gif = await nn.loadImage(GIF)  
+    const cellWidth = gif.width / 4
+    const numCols = nn.width / cellWidth
+    const cellHeight = gif.height / 4
+    const numRows = (nn.height * 0.75 / cellHeight)
     
     for (let r = 0; r < numRows; r++) {
     for (let c = 0; c < numCols; c++) {
-      const x = c * colSize
-      const y = r * rowSize
-      createGif(x,y)
+      const x = c * cellWidth
+      const y = r * cellHeight
+      createGif(x, y, gif.width, gif.height, GIF)
      }
    }
  }
