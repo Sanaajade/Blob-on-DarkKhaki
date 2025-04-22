@@ -17,18 +17,19 @@ function createGif (x, y, w, h, gif){
       width: 100,
       left: x - w / 2,
       top: y - h / 2,
+      transition: 'all 1s',
       imageRendering:'pixelated'
     })
     .addTo('body')
-  }
+}
 
   async function createGifCircle (num, scale, radius, gifPath) {
     
     const gif1 = await nn.loadImage(gifPath)
     
+    num = 200
     let rad = 0
     for (let i = 0; i < num; i++) {
-      num = 200
       const cx = nn.width / 2
       const cy = nn.height / 2
       const s = 9.5
@@ -47,8 +48,8 @@ async function setup () {
     })
   
     createGifCircle(22, 0.3, 100, GIF)
-    createGifCircle(22, 0.3, 150, GIF)
-    createGifCircle(22, 0.3, 200, GIF)
+    createGifCircle(22, 0.3, 160, GIF)
+    createGifCircle(22, 0.3, 180, GIF)
 }
   nn.on('load', setup)
   
