@@ -23,15 +23,15 @@ function createGif (x, y, w, h, gif){
     .addTo('body')
 }
 
-  async function createGifCircle (num, scale, radius, gifPath) {
+  async function createGifCircle (num, scale, startRadius, gifPath) {
     
     const gif1 = await nn.loadImage(gifPath)
     
+    const cx = nn.width / 2
+    const cy = nn.height / 2
     num = 200
-    let rad = 0
+    let rad = startRadius
     for (let i = 0; i < num; i++) {
-      const cx = nn.width / 2
-      const cy = nn.height / 2
       const s = 9.5
       const x = cx + Math.sin(i * s) * rad
       const y = cy + Math.cos(i * s) * rad
@@ -52,5 +52,6 @@ async function setup () {
     createGifCircle(22, 0.3, 180, GIF)
 }
   nn.on('load', setup)
+  nn.on('resize', setup)
   
 </script>
