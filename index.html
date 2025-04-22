@@ -4,28 +4,39 @@
   
 const GIF = 'Blob Morphing Sticker.gif'
 const COLOR = 'Honeydew'
+
+function sleep (ms) {
+   return new Promise(resolve => setTimeout(resolve, ms))
+}
   
 function createGif (x, y, w, h, gif){
   nn.create('img')
      .set({ src: `${gif}#${Math.random()}`})
      .css({
       position: 'absolute',
-      width: w,
+      width: 100,
       left: x - w / 2,
       top: y - h / 2,
       imageRendering:'pixelated'
     })
     .addTo('body')
   }
-  
-  async function createGifCircle (num, scale, radius, gif) {
-    const gif1 = await nn.loadImage(gif)
+
+  async function createGifCircle (num, scale, radius, gifPath) {
+    
+    const gif1 = await nn.loadImage(gifPath)
+    
+    let rad = 0
     for (let i = 0; i < num; i++) {
+      num = 200
       const cx = nn.width / 2
       const cy = nn.height / 2
-      const x = cx + Math.sin(i * scale) * radius
-      const y = cy + Math.cos(i * scale) * radius
-      createGif(x, y, gif.width, gif.height, gif1)
+      const s = 9.5
+      const x = cx + Math.sin(i * s) * rad
+      const y = cy + Math.cos(i * s) * rad
+      await sleep(50)
+      createGif(x, y, gif1.width, gif1.height, gifPath)
+      rad += 2
     }
   }
   
